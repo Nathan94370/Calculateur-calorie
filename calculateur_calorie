@@ -1,0 +1,44 @@
+def calculate_calories(sexe, poids, taille, age, activite):
+    # Calcul du métabolisme basal (BMR) 
+    if sexe == 'homme':
+        bmr = (10 * poids) + (6.25 * taille) - (5 * age) + 5
+    elif sexe == 'femme':
+        bmr = (10 * poids) + (6.25 * taille) - (5 * age) - 161
+    else:
+        return "Le sexe doit être 'homme' ou 'femme'."
+
+    # Définition des niveaux d'activité
+    niveaux_activite = {
+        'sédentaire': 1.2,
+        'actif': 1.4,
+        'très actif': 1.6,
+        'extrêmement actif': 1.8
+    }
+    
+    # Vérification de la validité du niveau d'activité
+    if activite not in niveaux_activite:
+        return "Le niveau d'activité doit être l'un des suivants : sédentaire, actif, très actif, extrêmement actif."
+    
+    # Calcul du besoin calorique total
+    besoin_calorique = bmr * niveaux_activite
+    return (besoin_calorique)
+
+# Saisie des informations par l'utilisateur
+print("Calculateur de besoins caloriques journaliers\n")
+
+sexe = input("Quel est votre sexe ('homme' ou 'femme') ? ")
+poids = float(input("Quel est votre poids (en kg) ? "))
+taille = float(input("Quelle est votre taille (en cm) ? "))
+age = int(input("Quel est votre âge ? "))
+print("Niveau d'activité : sédentaire, actif, très actif, extrêmement actif")
+activite = input("Quel est votre niveau d'activité ? ")
+
+# Calcul des besoins caloriques
+calories = calculate_calories(sexe, poids, taille, age, activite)
+
+# Affichage du résultat
+if isinstance(calories, str):
+    print(calories)  # Affiche le message d'erreur en cas de saisie incorrecte
+else:
+    print(f"Vos besoins caloriques journaliers sont : {calories} kcal")
+
